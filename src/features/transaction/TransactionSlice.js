@@ -46,4 +46,76 @@ export const removeTransaction = createAsyncThunk(
         return transaction;
     }
 );
-//
+
+// create slice
+const TransactionSlice = createSlice({
+    name: "transaction",
+    initialState,
+    extraReducers: (builder) => {
+        builder
+            .addCase(fetchTransactions.pending, (state) => {
+                state.isLoading = true;
+                state.isError = false;
+            })
+            .addCase(fetchTransactions.fulfilled, (state, action) => {
+                state.isLoading = false;
+                state.transactions = action.payload;
+                state.isError = false;
+            })
+            .addCase(fetchTransactions.rejected, (state, action) => {
+                state.isLoading = false;
+                state.isError = true;
+                state.errorMessage = action.error?.errorMessage;
+                state.transactions = [];
+            })
+            .addCase(createTransaction.pending, (state) => {
+                state.isLoading = true;
+                state.isError = false;
+            })
+            .addCase(createTransaction.fulfilled, (state, action) => {
+                state.isLoading = false;
+                state.isError = false;
+                state.transactions.push(action.payload);
+            })
+            .addCase(createTransaction.rejected, (state, action) => {
+                state.isLoading = false;
+                state.isError = true;
+                state.errorMessage = action.error?.errorMessage;
+            })
+            .addCase(changeTransaction.pending, (state) => {
+                state.isLoading = true;
+                state.isError = false;
+            })
+            .addCase(changeTransaction.fulfilled, (state, action) => {
+                state.isLoading = false;
+                state.isError = false;
+                const transactionId = state.transactions.findIndex(
+                    (transaction) => transaction.id === action.payload.id
+                );
+                state.transactions[transactionId] = action.payload;
+            })
+            .addCase(changeTransaction.rejected, (state, action) => {
+                state.isLoading = false;
+                state.isError = true;
+                state.errorMessage = action.error?.errorMessage;
+            })
+            .addCase(removeTransaction.pending, (state) => {
+                state.isLoading = true;
+                state.isError = false;
+            })
+            .addCase(removeTransaction.fulfilled, (state, action) => {
+                state.isLoading = false;
+                state.isError = false;
+                state.transactions = state.transactions.filter(
+                    (transaction) => transaction.id !== action.payload
+                );
+            })
+            .addCase(removeTransaction.rejected, (state, action) => {
+                state.isLoading = false;
+                state.isError = true;
+                state.errorMessage = action.error?.errorMessage;
+            });
+    },
+});
+
+export default TransactionSlice.reducer;
