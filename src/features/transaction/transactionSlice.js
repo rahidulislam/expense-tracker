@@ -4,7 +4,7 @@ import {
     addTransaction,
     editTransaction,
     deleteTransaction,
-} from "./TransactionAPI";
+} from "./transactionAPI";
 
 // initialize
 initialState = {
