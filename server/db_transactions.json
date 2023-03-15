@@ -7,34 +7,10 @@
       "id": 1
     },
     {
-      "id": 2,
-      "name": "Family Expenses",
-      "type": "expense",
-      "amount": 200000
-    },
-    {
-      "name": "sa",
+      "name": "school fees",
       "type": "income",
-      "amount": 50088,
-      "id": 3
-    },
-    {
-      "name": "new",
-      "type": "income",
-      "amount": "500",
-      "id": 4
-    },
-    {
-      "name": "new2",
-      "type": "income",
-      "amount": 5005,
-      "id": 5
-    },
-    {
-      "name": "mobile bill",
-      "type": "expense",
-      "amount": 20076,
-      "id": 6
+      "amount": 2000,
+      "id": 2
     }
   ]
 }
