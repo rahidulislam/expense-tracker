@@ -6,14 +6,15 @@ import {
 } from "../features/transaction/transactionSlice";
 export default function Form() {
     const dispatch = useDispatch();
-    const { isLoading, isError, errorMessage, editing } = useSelector(
+    const { isLoading, isError, errorMessage } = useSelector(
         (state) => state.transaction
     );
+    const {editing} = useSelector(state=>state.transaction) || {}
     const [name, setName] = useState("");
     const [type, setType] = useState("");
     const [amount, setAmount] = useState("");
     const [editMode, setEditMode] = useState(false);
-
+    console.log(editMode)
     const resetForm = () => {
         setName("");
         setType("");
@@ -43,6 +44,7 @@ export default function Form() {
                 },
             })
         );
+        setEditMode(false);
         resetForm();
     };
     const cancelEditMode = () => {
@@ -117,17 +119,17 @@ export default function Form() {
                 </div>
 
                 <button className="btn" type="submit" disabled={isLoading}>
-                    {editMode ? "Edit Transaction" : "Add Transaction"}
+                    {editMode ? "Update Transaction" : "Add Transaction"}
                 </button>
                 {!isLoading && isError && (
                     <p className="error">{errorMessage}</p>
                 )}
             </form>
-            {editMode && (
+            {editMode && 
                 <button className="btn cancel_edit" onClick={cancelEditMode}>
                     Cancel Edit
                 </button>
-            )}
+            }
         </div>
     );
 }
