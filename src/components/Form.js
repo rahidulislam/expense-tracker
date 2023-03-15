@@ -49,6 +49,7 @@ export default function Form() {
     };
     const cancelEditMode = () => {
         setEditMode(false);
+        resetForm();
     };
 
     useEffect(() => {
