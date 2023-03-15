@@ -31,9 +31,9 @@
       "id": 5
     },
     {
-      "name": "mobile",
+      "name": "mobile bill",
       "type": "expense",
-      "amount": 200,
+      "amount": 20076,
       "id": 6
     }
   ]
