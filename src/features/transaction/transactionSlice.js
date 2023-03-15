@@ -1,4 +1,4 @@
-import { createAsyncThunk } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import {
     getTransactions,
     addTransaction,
@@ -7,7 +7,7 @@ import {
 } from "./transactionAPI";
 
 // initialize
-initialState = {
+const initialState = {
     transactions: [],
     isLoading: false,
     isError: false,

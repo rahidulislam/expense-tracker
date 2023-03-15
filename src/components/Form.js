@@ -1,52 +1,75 @@
-import React from "react";
-
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import {createTransaction} from "../features/transaction/transactionSlice";
 export default function Form() {
+    const [name, setName] = useState("");
+    const [type, setType] = useState("");
+    const [amount, setAmount] = useState("");
+    const dispatch = useDispatch();
+    const handleCreate = (e) => {
+        e.preventDefault();
+        dispatch(
+            createTransaction({
+                name,
+                type,
+                amount,
+            })
+        );
+    };
     return (
         <div className="form">
-            <h3>Add new transaction</h3>
+            <Form onSubmit={handleCreate}>
+                <h3>Add new transaction</h3>
 
-            <div className="form-group">
-                <label for="transaction_name">Name</label>
-                <input
-                    type="text"
-                    name="transaction_name"
-                    placeholder="My Salary"
-                />
-            </div>
-
-            <div className="form-group radio">
-                <label for="transaction_type">Type</label>
-                <div className="radio_group">
+                <div className="form-group">
+                    <label for="transaction_name">Name</label>
                     <input
-                        type="radio"
-                        value="income"
-                        name="transaction_type"
-                        checked
+                        type="text"
+                        name="transaction_name"
+                        placeholder="My Salary"
+                        value={name}
+                        onChange={(e) => setName(e.target.value)}
                     />
-                    <label for="transaction_type">Income</label>
                 </div>
-                <div className="radio_group">
+
+                <div className="form-group radio">
+                    <label for="transaction_type">Type</label>
+                    <div className="radio_group">
+                        <input
+                            type="radio"
+                            value="income"
+                            name="transaction_type"
+                            checked={type === "income"}
+                            onChange={setType("income")}
+                        />
+                        <label for="transaction_type">Income</label>
+                    </div>
+                    <div className="radio_group">
+                        <input
+                            type="radio"
+                            value="expense"
+                            name="transaction_type"
+                            placeholder="Expense"
+                            checked={type === "expense"}
+                            onChange={setType("expense")}
+                        />
+                        <label for="transaction_type">Expense</label>
+                    </div>
+                </div>
+
+                <div className="form-group">
+                    <label for="transaction_amount">Amount</label>
                     <input
-                        type="radio"
-                        value="expense"
-                        name="transaction_type"
-                        placeholder="Expense"
+                        type="number"
+                        placeholder="300"
+                        name="transaction_amount"
+                        value={amount}
+                        onChange={(e) => setAmount(e.target.value)}
                     />
-                    <label for="transaction_type">Expense</label>
                 </div>
-            </div>
 
-            <div className="form-group">
-                <label for="transaction_amount">Amount</label>
-                <input
-                    type="number"
-                    placeholder="300"
-                    name="transaction_amount"
-                />
-            </div>
-
-            <button className="btn">Add Transaction</button>
-
+                <button className="btn">Add Transaction</button>
+            </Form>
             <button className="btn cancel_edit">Cancel Edit</button>
         </div>
     );
